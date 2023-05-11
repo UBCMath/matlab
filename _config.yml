@@ -1,0 +1,12 @@
+title: MATLAB for UBC Mathematics
+author: UBC Math
+logo: matrix.png
+copyright: "2023"
+sphinx:
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+only_build_toc_files: true
+html:
+  home_page_in_navbar: false
+repository:
+  url: https://github.com/UBCMath/matlab

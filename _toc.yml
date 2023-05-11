@@ -1,0 +1,22 @@
+format: jb-book
+root: index
+parts:
+  - caption: Getting Started
+    chapters:
+    - file: getting-started/mathworks.md
+    - file: getting-started/environment.md
+    - file: getting-started/mathematics.md
+    - file: getting-started/matrices.md
+    - file: getting-started/vectorization.md
+  - caption: Linear Algebra
+    chapters:
+    - file: linear-algebra/geometry.md
+    - file: linear-algebra/systems.md
+    - file: linear-algebra/transformations.md
+    - file: linear-algebra/eigenvalues.md
+  - caption: Differential Equations
+    chapters:
+    - file: differential-equations/graphical.md
+    - file: differential-equations/numerical.md
+    - file: differential-equations/ode45.md
+    - file: differential-equations/systems.md
