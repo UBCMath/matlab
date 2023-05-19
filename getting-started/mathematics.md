@@ -1,10 +1,14 @@
 # Elementary Mathematics
 
+We can use MATLAB to solve all kinds of problems in calculus, linear algebra, differential equations and beyond. Let's take a look at some foundational mathematical concepts in MATLAB that are relavant in all branches of mathematics such as numbers, vectors, matrices and functions.
+
 :::{seealso}
 Check out the MATLAB documentation on [elementary mathematics](http://www.mathworks.com/help/matlab/elementary-math.html).
 :::
 
 ## Numbers
+
+We can use MATLAB to perform all the usual arithmetic operations:
 
 | Operation | MATLAB Syntax |
 | :---: | :---: |
@@ -98,7 +102,7 @@ ans =
 
 ## Variables
 
-Just like the familiar variables $x$ and $y$ in mathematics, we use variables in programming to easily manipulate values. The assignment operator `=` assigns values to variables in MATLAB. For example, let's compute the values $y = 1 + x + x^2$ and $y' = 1 + 2x$ for $x = 2$:
+Just like the familiar variables $x$ and $y$ in mathematics, we use variables in programming to easily manipulate values. The assignment operator `=` assigns a value to a variable in MATLAB. For example, let's compute the values $y = 1 + x + x^2$ and $y' = 1 + 2x$ for $x = 2$:
 
 ```none
 x = 2
@@ -133,9 +137,11 @@ dy =
 
 </pre>
 
-Note that the variables `x`, `y` and `dy` now appear in the workspace window and are available to use.
+Note that the variables `x`, `y` and `dy` now appear in the workspace window and are available for us to use to subsequent computations.
 
 ## Mathematical Functions
+
+All the standard mathematical functions are available in MATLAB:
 
 | Function | MATLAB Syntax |
 | :---: | :---: |
@@ -245,11 +251,3 @@ ans =
     0.2000
 
 </pre>
-
-## Exercises
-
-**Exercise 1.** Compute $1+2\sqrt{5}$ up to 15 decimal places.
-
-**Exercise 2.** Compute $\pi^2 /6$ up to 15 decimal places.
-
-**Exercise 3.** Compute ${\frac{e+e^{-1} }{2}}$ up to 15 decimal places.
