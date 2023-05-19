@@ -168,7 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/graphical.html">Graphical Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/graphical.html">Slope Fields</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/numerical.html">Numerical Methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/ode45.html">Numerical Solutions with ode45</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Differential Equations</a></li>
@@ -336,13 +336,14 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="working-with-matrices">
 <h1>Working with Matrices<a class="headerlink" href="#working-with-matrices" title="Permalink to this headline">#</a></h1>
+<p>MATLAB is the <em>matrix laboratory</em> and the programming language is designed to work efficiently with matrices. Let’s take a look at how to create matrices and how to perform matrix computations.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Check out the MATLAB documentation to learn more about <a class="reference external" href="https://www.mathworks.com/help/matlab/matrices-and-arrays.html">matrices</a>.</p>
 </div>
 <section id="manual-construction">
 <h2>Manual Construction<a class="headerlink" href="#manual-construction" title="Permalink to this headline">#</a></h2>
-<p>The simplest way to construct a matrix is to use square brackets <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">...</span> <span class="pre">]</span></code> and manually type the entries separated by a space (or comma) with rows separated by a semicolon <code class="docutils literal notranslate"><span class="pre">;</span></code>. For example, let’s create the matrix</p>
+<p>The simplest way to construct a matrix is to use square brackets <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">...</span> <span class="pre">]</span></code> and manually type the entries separated by a space (or comma <code class="docutils literal notranslate"><span class="pre">,</span></code>) with rows separated by a semicolon <code class="docutils literal notranslate"><span class="pre">;</span></code>. For example, let’s create the matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \\ 7 &amp; 8 &amp; 9 \end{bmatrix}
@@ -466,7 +467,7 @@ A =
      5     7
 
 </pre>
-<p>Combine matrices to create the block matrix:</p>
+<p>Concatenate matrices to create the block matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = \left[ \begin{array}{rrrr} 1 &amp; \phantom{+}1 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -1 &amp; -1 \\ 0 &amp; 0 &amp; -1 &amp; -1 \end{array} \right]

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Graphical Methods &#8212; MATLAB for UBC Mathematics</title>
+    <title>Slope Fields &#8212; MATLAB for UBC Mathematics</title>
   
   
   
@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'differential-equations/graphical';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -166,7 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Graphical Methods</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Slope Fields</a></li>
 <li class="toctree-l1"><a class="reference internal" href="numerical.html">Numerical Methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ode45.html">Numerical Solutions with ode45</a></li>
 <li class="toctree-l1"><a class="reference internal" href="systems.html">Systems of Differential Equations</a></li>
@@ -293,7 +295,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -304,11 +308,22 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Graphical Methods</h1>
+    <h1>Slope Fields</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-slope-fields">Creating Slope Fields</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slope-fields-with-solutions">Slope Fields with Solutions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-examples">More Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slopefield"><code class="docutils literal notranslate"><span class="pre">slopefield</span></code></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -318,9 +333,93 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="graphical-methods">
-<h1>Graphical Methods<a class="headerlink" href="#graphical-methods" title="Permalink to this headline">#</a></h1>
-<p><em>Under construction</em></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="slope-fields">
+<h1>Slope Fields<a class="headerlink" href="#slope-fields" title="Permalink to this headline">#</a></h1>
+<p>Most differential equations cannot be solved explicitly with elementary functions. So what do we do? The slope field of a first order differential equation is a graphical method for visualizing solutions. The idea is that an equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span> gives us complete information about the slope of a solution at any point even if we don’t know a formula for the solution.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Check out <a class="reference external" href="https://www.jirka.org/diffyqs/html/slopefields_section.html">Notes on Diffy Qs (Section 1.2)</a> to learn more about slope fields.</p>
+</div>
+<section id="creating-slope-fields">
+<h2>Creating Slope Fields<a class="headerlink" href="#creating-slope-fields" title="Permalink to this headline">#</a></h2>
+<p>Consider a first order differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span>. Create a slope field by simply drawing a small line of slope <span class="math notranslate nohighlight">\(f(t,y)\)</span> at various points <span class="math notranslate nohighlight">\((t,y)\)</span> in a grid in the <span class="math notranslate nohighlight">\(ty\)</span>-plane. It is possible to sketch slope fields by hand for simple examples but it is not practical in general. Naturally, we will use MATLAB to create slope fields for any equation.</p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">slopefield.m</span></code> plots the slope field of a first order differential equation. The function takes inputs <code class="docutils literal notranslate"><span class="pre">f</span></code>, <code class="docutils literal notranslate"><span class="pre">t</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> is a function which represents the right hand side of the differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t</span></code> is a vector of <span class="math notranslate nohighlight">\(t\)</span> values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code> is a vector of <span class="math notranslate nohighlight">\(y\)</span> values</p></li>
+</ul>
+<p>Save the file <code class="docutils literal notranslate"><span class="pre">slopefield.m</span></code> to your MATLAB development environment (see <code class="docutils literal notranslate"><span class="pre">slopefield</span></code> below). Note that the file must be saved to the current folder.</p>
+<p>Let’s plot the slope field of the equation <span class="math notranslate nohighlight">\(y' = -ty\)</span> over the intervals <span class="math notranslate nohighlight">\(0 \leq t \leq 4\)</span> and <span class="math notranslate nohighlight">\(-2 \leq y \leq 2\)</span>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) -t.*y;
+t = 0:0.2:4;
+y = -2:0.2:2;
+slopefield(f,t,y);
+</pre></div>
+</div>
+<p><img alt="graphical1.png" src="../_images/graphical1.png" /></p>
+<p>The script above accomplishes the following tasks:</p>
+<ul class="simple">
+<li><p>Define the right hand side of the equation <span class="math notranslate nohighlight">\(y' = -ty\)</span> as a function <span class="math notranslate nohighlight">\(f(t,y) = -ty\)</span></p></li>
+<li><p>Define vector <code class="docutils literal notranslate"><span class="pre">t</span></code> of <span class="math notranslate nohighlight">\(t\)</span> values over the interval <span class="math notranslate nohighlight">\(0 \leq t \leq 4\)</span> using grid step size <span class="math notranslate nohighlight">\(0.2\)</span></p></li>
+<li><p>Define vector <code class="docutils literal notranslate"><span class="pre">y</span></code> of <span class="math notranslate nohighlight">\(y\)</span> values over the interval <span class="math notranslate nohighlight">\(-2 \leq y \leq 2\)</span> using grid step size <span class="math notranslate nohighlight">\(0.2\)</span></p></li>
+<li><p>Plot the direction field of the equation <span class="math notranslate nohighlight">\(y' = -ty\)</span> over the corresponding region</p></li>
+</ul>
+</section>
+<section id="slope-fields-with-solutions">
+<h2>Slope Fields with Solutions<a class="headerlink" href="#slope-fields-with-solutions" title="Permalink to this headline">#</a></h2>
+<p>The slope field of a differential equation shows the shape of solutions. In other words, we can “see” solutions by tracing the slopes in the slope field. To make this point more clear, consider an equation where we know the exact solution and let’s plot solutions with the slope field.</p>
+<p>The general solution of the <a class="reference external" href="https://en.wikipedia.org/wiki/Logistic_function">logistic equation</a> <span class="math notranslate nohighlight">\(y' = y(1-y)\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+y(t) = \frac{C e^t}{1 + C(e^t - 1)} \ , \ \ y(0) = C
+\]</div>
+<p>Plot the slope field of the logistic equation with solutions for initial conditions <span class="math notranslate nohighlight">\(y_0 = 0.1, 0.5, 2.0\)</span>. Use the command <code class="docutils literal notranslate"><span class="pre">hold</span> <span class="pre">on</span></code> to keep the slope field figure open and add lines to the plot.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) y.*(1 - y);
+t = 0:0.2:4; y = -0.5:0.25:2.5;
+slopefield(f,t,y), hold on
+
+t = 0:0.1:4;
+C1 = 0.1; y1 = C1*exp(t)./(1 + C1*(exp(t) - 1)); plot(t,y1,&#39;r&#39;)
+C2 = 0.5; y2 = C2*exp(t)./(1 + C2*(exp(t) - 1)); plot(t,y2,&#39;r&#39;)
+C3 = 2.0; y3 = C3*exp(t)./(1 + C3*(exp(t) - 1)); plot(t,y3,&#39;r&#39;)
+hold off
+</pre></div>
+</div>
+<p><img alt="graphical2.png" src="../_images/graphical2.png" /></p>
+</section>
+<section id="more-examples">
+<h2>More Examples<a class="headerlink" href="#more-examples" title="Permalink to this headline">#</a></h2>
+<p>Consider the first order differential equation</p>
+<div class="math notranslate nohighlight">
+\[
+y' = \sin(\pi t) - \cos(\pi y)
+\]</div>
+<p>The equation is neither linear nor separable and there is no method to find a formula for the exact solution. Plot the slope field to visualize solutions.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) sin(pi*t) - cos(pi*y);
+t = 0:0.2:5; y = -2:0.2:2;
+slopefield(f,t,y)
+</pre></div>
+</div>
+<p><img alt="graphical3.png" src="../_images/graphical3.png" /></p>
+</section>
+<section id="slopefield">
+<h2><code class="docutils literal notranslate"><span class="pre">slopefield</span></code><a class="headerlink" href="#slopefield" title="Permalink to this headline">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>function slopefield(f,t,y)
+
+[T,Y] = meshgrid(t,y);
+dydt = f(T,Y);
+theta = atan(dydt);
+L = min(min(diff(t)),min(diff(y)))*0.8;
+dy = L*sin(theta);
+dt = L*cos(theta);
+quiver(t,y,dt,dy,0)
+axis equal; axis([t(1),t(end),y(1),y(end)]);
+
+end
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -381,6 +480,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-slope-fields">Creating Slope Fields</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slope-fields-with-solutions">Slope Fields with Solutions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-examples">More Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slopefield"><code class="docutils literal notranslate"><span class="pre">slopefield</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

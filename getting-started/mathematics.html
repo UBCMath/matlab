@@ -168,7 +168,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/graphical.html">Graphical Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/graphical.html">Slope Fields</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/numerical.html">Numerical Methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/ode45.html">Numerical Solutions with ode45</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Differential Equations</a></li>
@@ -324,7 +324,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-functions">Mathematical Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-functions">Custom Functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
             </nav>
         </div>
@@ -338,12 +337,14 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="elementary-mathematics">
 <h1>Elementary Mathematics<a class="headerlink" href="#elementary-mathematics" title="Permalink to this headline">#</a></h1>
+<p>We can use MATLAB to solve all kinds of problems in calculus, linear algebra, differential equations and beyond. Let’s take a look at some foundational mathematical concepts in MATLAB that are relavant in all branches of mathematics such as numbers, vectors, matrices and functions.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Check out the MATLAB documentation on <a class="reference external" href="http://www.mathworks.com/help/matlab/elementary-math.html">elementary mathematics</a>.</p>
 </div>
 <section id="numbers">
 <h2>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">#</a></h2>
+<p>We can use MATLAB to perform all the usual arithmetic operations:</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-center head"><p>Operation</p></th>
@@ -438,7 +439,7 @@ ans =
 </section>
 <section id="variables">
 <h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">#</a></h2>
-<p>Just like the familiar variables <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in mathematics, we use variables in programming to easily manipulate values. The assignment operator <code class="docutils literal notranslate"><span class="pre">=</span></code> assigns values to variables in MATLAB. For example, let’s compute the values <span class="math notranslate nohighlight">\(y = 1 + x + x^2\)</span> and <span class="math notranslate nohighlight">\(y' = 1 + 2x\)</span> for <span class="math notranslate nohighlight">\(x = 2\)</span>:</p>
+<p>Just like the familiar variables <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in mathematics, we use variables in programming to easily manipulate values. The assignment operator <code class="docutils literal notranslate"><span class="pre">=</span></code> assigns a value to a variable in MATLAB. For example, let’s compute the values <span class="math notranslate nohighlight">\(y = 1 + x + x^2\)</span> and <span class="math notranslate nohighlight">\(y' = 1 + 2x\)</span> for <span class="math notranslate nohighlight">\(x = 2\)</span>:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>x = 2
 </pre></div>
 </div>
@@ -466,10 +467,11 @@ dy =
      5
 
 </pre>
-<p>Note that the variables <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">dy</span></code> now appear in the workspace window and are available to use.</p>
+<p>Note that the variables <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">dy</span></code> now appear in the workspace window and are available for us to use to subsequent computations.</p>
 </section>
 <section id="mathematical-functions">
 <h2>Mathematical Functions<a class="headerlink" href="#mathematical-functions" title="Permalink to this headline">#</a></h2>
+<p>All the standard mathematical functions are available in MATLAB:</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-center head"><p>Function</p></th>
@@ -585,14 +587,7 @@ ans =
 
     0.2000
 
-</pre>
-</section>
-<section id="exercises">
-<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">#</a></h2>
-<p><strong>Exercise 1.</strong> Compute <span class="math notranslate nohighlight">\(1+2\sqrt{5}\)</span> up to 15 decimal places.</p>
-<p><strong>Exercise 2.</strong> Compute <span class="math notranslate nohighlight">\(\pi^2 /6\)</span> up to 15 decimal places.</p>
-<p><strong>Exercise 3.</strong> Compute <span class="math notranslate nohighlight">\({\frac{e+e^{-1} }{2}}\)</span> up to 15 decimal places.</p>
-</section>
+</pre></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -668,7 +663,6 @@ ans =
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-functions">Mathematical Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-functions">Custom Functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
   </nav></div>
 

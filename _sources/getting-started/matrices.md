@@ -1,12 +1,14 @@
 # Working with Matrices
 
+MATLAB is the *matrix laboratory* and the programming language is designed to work efficiently with matrices. Let's take a look at how to create matrices and how to perform matrix computations.
+
 :::{seealso}
 Check out the MATLAB documentation to learn more about [matrices](https://www.mathworks.com/help/matlab/matrices-and-arrays.html).
 :::
 
 ## Manual Construction
 
-The simplest way to construct a matrix is to use square brackets `[ ... ]` and manually type the entries separated by a space (or comma) with rows separated by a semicolon `;`. For example, let's create the matrix
+The simplest way to construct a matrix is to use square brackets `[ ... ]` and manually type the entries separated by a space (or comma `,`) with rows separated by a semicolon `;`. For example, let's create the matrix
 
 $$
 A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}
@@ -155,7 +157,7 @@ A =
 
 </pre>
 
-Combine matrices to create the block matrix:
+Concatenate matrices to create the block matrix
 
 $$
 A = \left[ \begin{array}{rrrr} 1 & \phantom{+}1 & 0 & 0 \\ 1 & 1 & 0 & 0 \\ 0 & 0 & -1 & -1 \\ 0 & 0 & -1 & -1 \end{array} \right]
