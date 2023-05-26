@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Numerical Methods &#8212; MATLAB for UBC Mathematics</title>
+    <title>Euler’s Method &#8212; MATLAB for UBC Mathematics</title>
   
   
   
@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'differential-equations/numerical';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -167,7 +169,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="graphical.html">Slope Fields</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Numerical Methods</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Euler’s Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ode45.html">Numerical Solutions with ode45</a></li>
 <li class="toctree-l1"><a class="reference internal" href="systems.html">Systems of Differential Equations</a></li>
 </ul>
@@ -293,7 +295,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -304,11 +308,23 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Numerical Methods</h1>
+    <h1>Euler’s Method</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation">Formulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#odeeuler"><code class="docutils literal notranslate"><span class="pre">odeEuler</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-analysis">Error Analysis</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -318,9 +334,192 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="numerical-methods">
-<h1>Numerical Methods<a class="headerlink" href="#numerical-methods" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="euler-s-method">
+<h1>Euler’s Method<a class="headerlink" href="#euler-s-method" title="Permalink to this headline">#</a></h1>
+<p>Most differential equations cannot be solved explicitly with elementary functions. So what do we do? Numerical methods are algorithms to numerically approximate solutions of differential equations and Euler’s method is the most basic numerical method. The idea is simple: use the equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span> to construct the tangent line to the unknown solution <span class="math notranslate nohighlight">\(y(t)\)</span> at a given point <span class="math notranslate nohighlight">\(t\)</span>, approximate the solution nearby <span class="math notranslate nohighlight">\(y(t+h)\)</span> and repeat.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Check out <a class="reference external" href="https://www.jirka.org/diffyqs/html/numer_section.html">Notes on Diffy Qs (Section 1.7)</a> to learn more about Euler’s method, and see the MATLAB documentation for more information about <a class="reference external" href="https://www.mathworks.com/help/matlab/ref/for.html">for loops</a> and <a class="reference external" href="https://www.mathworks.com/help/matlab/ref/function.html">functions</a>.</p>
+</div>
+<section id="formulation">
+<h2>Formulation<a class="headerlink" href="#formulation" title="Permalink to this headline">#</a></h2>
+<p>Consider a first order differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span> with initial value <span class="math notranslate nohighlight">\(y(t_0) = y_0\)</span>. Use the tangent line of the solution to approximate values near <span class="math notranslate nohighlight">\(t = t_0\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+y(t) \approx y_0 + f(t_0,y_0)(t - t_0)
+\]</div>
+<p>In particular, choose a step size <span class="math notranslate nohighlight">\(h = t_1 - t_0\)</span> and define</p>
+<div class="math notranslate nohighlight">
+\[
+y_1 = y_0 + f(t_0,y_0)(t_1 - t_0)
+\]</div>
+<p>Repeating the process defines a recursive sequence</p>
+<div class="math notranslate nohighlight">
+\[
+y_{n+1} = y_n + f(t_n,y_n)(t_{n+1} - t_n) \ , \ \ y(t_0) = y_0
+\]</div>
+<p>such that <span class="math notranslate nohighlight">\(y_n \approx y(t_n)\)</span> is an approximation of the solution <span class="math notranslate nohighlight">\(y(t)\)</span> at <span class="math notranslate nohighlight">\(t=t_n\)</span>. Note that we usually choose the same step size <span class="math notranslate nohighlight">\(h = t_{n+1} - t_n\)</span> for all <span class="math notranslate nohighlight">\(n\)</span> so that <span class="math notranslate nohighlight">\(t_n = t_0 + nh\)</span>.</p>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">#</a></h2>
+<p>Consider the familiar equation <span class="math notranslate nohighlight">\(y' = -y\)</span>, <span class="math notranslate nohighlight">\(y(0) = 1\)</span>. We know the exact solution is <span class="math notranslate nohighlight">\(y(t) = e^{-t}\)</span>. Let’s compute the approximation by Euler’s method and compare to the exact answer.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) -y;
+t0 = 0; tf = 2; h = 0.1;
+t = t0:h:tf;
+y0 = 1;
+
+y = zeros(size(t));
+y(1) = y0;
+
+for n = 1:(length(t)-1)
+    y(n+1) = y(n) + f(t(n),y(n))*h;
+end
+
+t_exact = linspace(t0,tf,200);
+y_exact = exp(-t_exact);
+
+plot(t,y,&#39;r.-&#39;,t_exact,y_exact,&#39;b&#39;)
+legend(&quot;Euler&#39;s Method&quot;,&quot;Exact Solution&quot;)
+ylim([0,1]), grid on
+</pre></div>
+</div>
+<p><img alt="numerical1.png" src="../_images/numerical1.png" /></p>
+<p>Let’s take a closer look at each step in the script above:</p>
+<p><strong>Step 1: Setup the differential equation, initial value and step size</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) -y;
+t0 = 0; tf = 2; h = 0.1;
+t = t0:h:tf;
+y0 = 1;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Define the right hand side of the differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span> as a function <code class="docutils literal notranslate"><span class="pre">f</span></code></p></li>
+<li><p>Enter the intial <span class="math notranslate nohighlight">\(t\)</span> value <code class="docutils literal notranslate"><span class="pre">t0</span></code></p></li>
+<li><p>Choose an interval <span class="math notranslate nohighlight">\([t_0,t_f]\)</span> over which to compute the approximation by setting a value for <code class="docutils literal notranslate"><span class="pre">tf</span></code></p></li>
+<li><p>Choose the step size <code class="docutils literal notranslate"><span class="pre">h</span></code></p></li>
+<li><p>Create the vector of values from <span class="math notranslate nohighlight">\(t_0\)</span> to <span class="math notranslate nohighlight">\(t_f\)</span> incremented by <span class="math notranslate nohighlight">\(h\)</span> (ie. <span class="math notranslate nohighlight">\(t_n = t_0 + nh\)</span>)</p></li>
+<li><p>Enter the initial value <code class="docutils literal notranslate"><span class="pre">y0</span></code> (corresponding to <span class="math notranslate nohighlight">\(y(t_0) = y_0\)</span>)</p></li>
+</ul>
+<p><strong>Step 2: Initialize the vector of <span class="math notranslate nohighlight">\(y\)</span> values</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>y = zeros(size(t));
+y(1) = y0;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Define a vector of zeros of same size as the vector <code class="docutils literal notranslate"><span class="pre">t</span></code></p></li>
+<li><p>Enter the initial value <span class="math notranslate nohighlight">\(y_0\)</span> for the first entry of vector <code class="docutils literal notranslate"><span class="pre">y</span></code></p></li>
+</ul>
+<p><strong>Step 3: Implement Euler’s method</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for n = 1:(length(t)-1)
+    y(n+1) = y(n) + f(t(n),y(n))*h;
+end
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Compute <span class="math notranslate nohighlight">\(y_{n+1} = y_n + f(t_n,y_n)(t_{n+1} - t_n)\)</span> for each <span class="math notranslate nohighlight">\(n\)</span></p></li>
+<li><p>The value <code class="docutils literal notranslate"><span class="pre">y(n)</span></code> corresponds to <span class="math notranslate nohighlight">\(y_{n-1}\)</span> in the sequence <span class="math notranslate nohighlight">\(y_0,y_1,y_2,\dots\)</span> since <code class="docutils literal notranslate"><span class="pre">y</span></code> starts at index 1</p></li>
+<li><p>The for loop updates the entry <code class="docutils literal notranslate"><span class="pre">y(n+1)</span></code> in the vector <code class="docutils literal notranslate"><span class="pre">y</span></code> each time through the loop</p></li>
+</ul>
+<p><strong>Step 4: Compute the exact solution</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>t_exact = linspace(t0,tf,200);
+y_exact = exp(-t_exact);
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Create a vector of <span class="math notranslate nohighlight">\(t\)</span> values from <span class="math notranslate nohighlight">\(t_0\)</span> to <span class="math notranslate nohighlight">\(t_f\)</span> to construct the exact solution</p></li>
+<li><p>Compute the <span class="math notranslate nohighlight">\(y\)</span> values using the formula for the exact solution <span class="math notranslate nohighlight">\(y(t) = e^{-t}\)</span></p></li>
+</ul>
+<p><strong>Step 5: Plot the result</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>plot(t,y,&#39;r.-&#39;,t_exact,y_exact,&#39;b&#39;)
+legend(&quot;Euler&#39;s Method&quot;,&quot;Exact Solution&quot;)
+ylim([0,1]), grid on
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Plot the approximations generated by Euler’s method as red dots connected by a solid line <code class="docutils literal notranslate"><span class="pre">'r.-'</span></code></p></li>
+<li><p>Plot the exact solution as a blue line <code class="docutils literal notranslate"><span class="pre">'b'</span></code></p></li>
+<li><p>Add a legend, restrict the range of the <span class="math notranslate nohighlight">\(y\)</span> axis to the interval <span class="math notranslate nohighlight">\([0,1]\)</span> and add a grid</p></li>
+</ul>
+</section>
+<section id="odeeuler">
+<h2><code class="docutils literal notranslate"><span class="pre">odeEuler</span></code><a class="headerlink" href="#odeeuler" title="Permalink to this headline">#</a></h2>
+<p>We will repeat the exact same code in steps 2 and 3 above every time we implement Euler’s method and so we should package those lines of code into a function so that we can easily reuse the code. Let’s create a function called <code class="docutils literal notranslate"><span class="pre">odeEuler</span></code> which takes input parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> is a function which represents the right hand side of a differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t</span></code> is a vector of <span class="math notranslate nohighlight">\(t\)</span> values from <span class="math notranslate nohighlight">\(t_0\)</span> to <span class="math notranslate nohighlight">\(t_f\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y0</span></code> is the initial value <span class="math notranslate nohighlight">\(y(t_0) = y_0\)</span></p></li>
+</ul>
+<p>The function returns vectors <code class="docutils literal notranslate"><span class="pre">T</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code> where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> is the same as the input vector <code class="docutils literal notranslate"><span class="pre">t</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Y</span></code> is the vector of <span class="math notranslate nohighlight">\(y\)</span> values computed by Euler’s method</p></li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>function [T,Y] = odeEuler(f,t,y0)
+
+T = t;
+Y = zeros(size(T));
+Y(1) = y0;
+for n = 1:(length(t)-1)
+    Y(n+1) = Y(n) + f(T(n),Y(n))*(T(n+1) - T(n));
+end
+
+end
+</pre></div>
+</div>
+<p>Let’s use <code class="docutils literal notranslate"><span class="pre">odeEuler</span></code> to plot the approximation of <span class="math notranslate nohighlight">\(y' = y\)</span>, <span class="math notranslate nohighlight">\(y(0)=1\)</span>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) -y;
+t0 = 0; tf = 2; h = 0.1; t = t0:h:tf; y0 = 1;
+[T,Y] = odeEuler(f,t,y0);
+plot(T,Y,&#39;r.-&#39;), ylim([0,1]), grid on
+</pre></div>
+</div>
+<p><img alt="numerical2.png" src="../_images/numerical2.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Copy and paste the code for the function <code class="docutils literal notranslate"><span class="pre">odeEuler</span></code> into a new script and save the file in your MATLAB development environment as <code class="docutils literal notranslate"><span class="pre">odeEuler.m</span></code>. The file <code class="docutils literal notranslate"><span class="pre">odeEuler.m</span></code> must be saved to the current folder to use it in other scripts in the same folder. Also the function <code class="docutils literal notranslate"><span class="pre">odeEuler</span></code> is designed to accept and return the same input and output parameters as the MATLAB function <code class="docutils literal notranslate"><span class="pre">ode45</span></code>. We’ll see <code class="docutils literal notranslate"><span class="pre">ode45</span></code> in later sections.</p>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h2>
+<p><strong>Example: Euler’s method and slope fields</strong></p>
+<p>Euler’s method is an iterative method which geenrates approximations of solutions of differential equations by simply following the slopes in a slopefield. Let’s plot an approximation of <span class="math notranslate nohighlight">\(y' = y\)</span>, <span class="math notranslate nohighlight">\(y(0) = 1\)</span> along with the slopefield to view the realtionship between them.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) -y;
+t0 = 0; tf = 2; h = 0.1; t = t0:h:tf; y0 = 1;
+y = 0:h:1;
+slopefield(f,t,y), hold on
+[T,Y] = odeEuler(f,t,y0);
+plot(T,Y,&#39;r.-&#39;), hold off
+</pre></div>
+</div>
+<p><img alt="numerical3.png" src="../_images/numerical3.png" /></p>
+<p><strong>Example: Nonlinear, nonseparable equations</strong></p>
+<p>As we have noted multiple times before, most differential equations are impossible to solve explicitly with elementary functions. We have methods to analytically solve linear equations and separable equations and so let’s use Euler’s method to approximate solutions for an example where a formula for the general solution is unknown. Let’s plot an approximation of <span class="math notranslate nohighlight">\(y' = t - y^2\)</span> for each initial value <span class="math notranslate nohighlight">\(y(0)=0,1,2,3\)</span>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) t - y.^2;
+t0 = 0; tf = 4; h = 0.01; t = t0:h:tf;
+[T,Y0] = odeEuler(f,t,0); plot(T,Y0,&#39;b&#39;), hold on
+[T,Y1] = odeEuler(f,t,1); plot(T,Y1,&#39;b&#39;)
+[T,Y2] = odeEuler(f,t,2); plot(T,Y2,&#39;b&#39;)
+[T,Y3] = odeEuler(f,t,3); plot(T,Y3,&#39;b&#39;), hold off
+</pre></div>
+</div>
+<p><img alt="numerical4.png" src="../_images/numerical4.png" /></p>
+<p><strong>Example: Use a for loop to plot many solutions</strong></p>
+<p>In the previous example, we repeated the same commands to approximate and plot solutions for differential initial values. Let’s now use a for loop to plot an approximations of <span class="math notranslate nohighlight">\(y' = \sin(t) + \cos(y)\)</span> for each initial value <span class="math notranslate nohighlight">\(y(0) = y_0\)</span> from <span class="math notranslate nohighlight">\(y_0 = -5\)</span> to <span class="math notranslate nohighlight">\(y_0 = 10\)</span> incremented by <span class="math notranslate nohighlight">\(0.5\)</span>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) sin(t) + cos(y);
+t0 = 0; tf = 10; h = 0.01; t = t0:h:tf;
+for y0=-5:0.5:10
+    [T,Y] = odeEuler(f,t,y0);
+    plot(T,Y,&#39;b&#39;), hold on
+end
+hold off
+</pre></div>
+</div>
+<p><img alt="numerical5.png" src="../_images/numerical5.png" /></p>
+</section>
+<section id="error-analysis">
+<h2>Error Analysis<a class="headerlink" href="#error-analysis" title="Permalink to this headline">#</a></h2>
 <p><em>Under construction</em></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -381,6 +580,24 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation">Formulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#odeeuler"><code class="docutils literal notranslate"><span class="pre">odeEuler</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-analysis">Error Analysis</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
