@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Development Environment &#8212; MATLAB for UBC Mathematics</title>
   
@@ -46,6 +46,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -70,7 +71,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Elementary Mathematics" href="mathematics.html" />
     <link rel="prev" title="Create a MathWorks Account" href="mathworks.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -169,7 +170,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/graphical.html">Slope Fields</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../differential-equations/numerical.html">Numerical Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential-equations/numerical.html">Euler’s Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/ode45.html">Numerical Solutions with ode45</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../differential-equations/systems.html">Systems of Differential Equations</a></li>
 </ul>
@@ -335,14 +336,14 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="development-environment">
-<h1>Development Environment<a class="headerlink" href="#development-environment" title="Permalink to this headline">#</a></h1>
+<h1>Development Environment<a class="headerlink" href="#development-environment" title="Permalink to this heading">#</a></h1>
 <p>Before we get into mathematical computing with MATLAB, let’s take a tour of the MATLAB development environment and learn about basic commands, variables, scripts and data files.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Check out the <a class="reference external" href="https://www.mathworks.com/help/matlab/">MATLAB documentation</a> on <a class="reference external" href="https://www.mathworks.com/help/matlab/getting-started-with-matlab.html">Getting Started with MATLAB</a>, and the <a class="reference external" href="https://matlabacademy.mathworks.com">MATLAB Academy</a> for online courses such as <a class="reference external" href="https://matlabacademy.mathworks.com/details/matlab-onramp/gettingstarted">MATLAB Onramp</a>.</p>
 </div>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
 <p>The <a class="reference external" href="https://www.mathworks.com/products/matlab.html">MATLAB</a> development environment consists of 5 parts:</p>
 <ol class="arabic simple">
 <li><p><strong>Command Window</strong>: enter commands and view output</p></li>
@@ -355,7 +356,7 @@ document.write(`
 <p><img alt="MATLAB Development Environment" src="../_images/environment.png" /></p>
 </section>
 <section id="command-window-and-workspace">
-<h2>Command Window and Workspace<a class="headerlink" href="#command-window-and-workspace" title="Permalink to this headline">#</a></h2>
+<h2>Command Window and Workspace<a class="headerlink" href="#command-window-and-workspace" title="Permalink to this heading">#</a></h2>
 <p>Let’s do a simple example to show how to enter commands, view output and save variables. Consider the system of linear equations</p>
 <div class="math notranslate nohighlight">
 \[
@@ -411,7 +412,7 @@ x =
 </div>
 </section>
 <section id="save-code-in-scripts">
-<h2>Save Code in Scripts<a class="headerlink" href="#save-code-in-scripts" title="Permalink to this headline">#</a></h2>
+<h2>Save Code in Scripts<a class="headerlink" href="#save-code-in-scripts" title="Permalink to this heading">#</a></h2>
 <p>We can enter commands in the command window however it is good practice to save commands in a MATLAB script. A script is simply a text file containing MATLAB code and has file extension <code class="docutils literal notranslate"><span class="pre">.m</span></code>.</p>
 <p>Let’s repeat the previous example using a script instead of entering all the commands in the command window:</p>
 <ol class="arabic simple">
@@ -444,7 +445,7 @@ x =
 </div>
 </section>
 <section id="save-variables-in-data-files">
-<h2>Save Variables in Data Files<a class="headerlink" href="#save-variables-in-data-files" title="Permalink to this headline">#</a></h2>
+<h2>Save Variables in Data Files<a class="headerlink" href="#save-variables-in-data-files" title="Permalink to this heading">#</a></h2>
 <p>Save the variables in the workspace to a data file using the <code class="docutils literal notranslate"><span class="pre">save</span></code> command. A data file has file extension <code class="docutils literal notranslate"><span class="pre">.mat</span></code>. Let’s build on the previous example and add the <code class="docutils literal notranslate"><span class="pre">save</span></code> command to our script to save the solution <code class="docutils literal notranslate"><span class="pre">x</span></code> to a data file called <code class="docutils literal notranslate"><span class="pre">example.mat</span></code>:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>A = [-2 1 0; 1 -2 1; 0 1 -2];
 b = [1; 1; 1];
@@ -467,7 +468,7 @@ save(&#39;example.mat&#39;,&#39;x&#39;)
 </div>
 </section>
 <section id="submit-a-data-file-to-canvas">
-<h2>Submit a Data File to Canvas<a class="headerlink" href="#submit-a-data-file-to-canvas" title="Permalink to this headline">#</a></h2>
+<h2>Submit a Data File to Canvas<a class="headerlink" href="#submit-a-data-file-to-canvas" title="Permalink to this heading">#</a></h2>
 <iframe style="width: 100%; height: 400px;" src="https://www.youtube.com/embed/CZ9e07y4LkA"></iframe></section>
 </section>
 

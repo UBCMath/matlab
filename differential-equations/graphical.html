@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Slope Fields &#8212; MATLAB for UBC Mathematics</title>
   
@@ -46,6 +46,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -67,10 +68,10 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'differential-equations/graphical';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Numerical Methods" href="numerical.html" />
+    <link rel="next" title="Euler’s Method" href="numerical.html" />
     <link rel="prev" title="Eigenvalues and Eigenvectors" href="../linear-algebra/eigenvalues.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -169,7 +170,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Differential Equations</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Slope Fields</a></li>
-<li class="toctree-l1"><a class="reference internal" href="numerical.html">Numerical Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numerical.html">Euler’s Method</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ode45.html">Numerical Solutions with ode45</a></li>
 <li class="toctree-l1"><a class="reference internal" href="systems.html">Systems of Differential Equations</a></li>
 </ul>
@@ -334,14 +335,14 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="slope-fields">
-<h1>Slope Fields<a class="headerlink" href="#slope-fields" title="Permalink to this headline">#</a></h1>
+<h1>Slope Fields<a class="headerlink" href="#slope-fields" title="Permalink to this heading">#</a></h1>
 <p>Most differential equations cannot be solved explicitly with elementary functions. So what do we do? The slope field of a first order differential equation is a graphical method for visualizing solutions. The idea is that an equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span> gives us complete information about the slope of a solution at any point even if we don’t know a formula for the solution.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Check out <a class="reference external" href="https://www.jirka.org/diffyqs/html/slopefields_section.html">Notes on Diffy Qs (Section 1.2)</a> to learn more about slope fields.</p>
 </div>
 <section id="creating-slope-fields">
-<h2>Creating Slope Fields<a class="headerlink" href="#creating-slope-fields" title="Permalink to this headline">#</a></h2>
+<h2>Creating Slope Fields<a class="headerlink" href="#creating-slope-fields" title="Permalink to this heading">#</a></h2>
 <p>Consider a first order differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span>. Create a slope field by simply drawing a small line of slope <span class="math notranslate nohighlight">\(f(t,y)\)</span> at various points <span class="math notranslate nohighlight">\((t,y)\)</span> in a grid in the <span class="math notranslate nohighlight">\(ty\)</span>-plane. It is possible to sketch slope fields by hand for simple examples but it is not practical in general. Naturally, we will use MATLAB to create slope fields for any equation.</p>
 <p>The function <code class="docutils literal notranslate"><span class="pre">slopefield.m</span></code> plots the slope field of a first order differential equation. The function takes inputs <code class="docutils literal notranslate"><span class="pre">f</span></code>, <code class="docutils literal notranslate"><span class="pre">t</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> where:</p>
 <ul class="simple">
@@ -367,7 +368,7 @@ slopefield(f,t,y);
 </ul>
 </section>
 <section id="slope-fields-with-solutions">
-<h2>Slope Fields with Solutions<a class="headerlink" href="#slope-fields-with-solutions" title="Permalink to this headline">#</a></h2>
+<h2>Slope Fields with Solutions<a class="headerlink" href="#slope-fields-with-solutions" title="Permalink to this heading">#</a></h2>
 <p>The slope field of a differential equation shows the shape of solutions. In other words, we can “see” solutions by tracing the slopes in the slope field. To make this point more clear, consider an equation where we know the exact solution and let’s plot solutions with the slope field.</p>
 <p>The general solution of the <a class="reference external" href="https://en.wikipedia.org/wiki/Logistic_function">logistic equation</a> <span class="math notranslate nohighlight">\(y' = y(1-y)\)</span> is given by</p>
 <div class="math notranslate nohighlight">
@@ -389,7 +390,7 @@ hold off
 <p><img alt="graphical2.png" src="../_images/graphical2.png" /></p>
 </section>
 <section id="more-examples">
-<h2>More Examples<a class="headerlink" href="#more-examples" title="Permalink to this headline">#</a></h2>
+<h2>More Examples<a class="headerlink" href="#more-examples" title="Permalink to this heading">#</a></h2>
 <p>Consider the first order differential equation</p>
 <div class="math notranslate nohighlight">
 \[
@@ -404,7 +405,7 @@ slopefield(f,t,y)
 <p><img alt="graphical3.png" src="../_images/graphical3.png" /></p>
 </section>
 <section id="slopefield">
-<h2><code class="docutils literal notranslate"><span class="pre">slopefield</span></code><a class="headerlink" href="#slopefield" title="Permalink to this headline">#</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">slopefield</span></code><a class="headerlink" href="#slopefield" title="Permalink to this heading">#</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>function slopefield(f,t,y)
 
 [T,Y] = meshgrid(t,y);
@@ -467,7 +468,7 @@ end
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Numerical Methods</p>
+        <p class="prev-next-title">Euler’s Method</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

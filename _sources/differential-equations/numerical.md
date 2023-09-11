@@ -80,7 +80,7 @@ y = zeros(size(t));
 y(1) = y0;
 ```
 
-* Define a vector of zeros of same size as the vector `t`
+* Initialize a vector `y` of zeros of same size as the vector `t`
 * Enter the initial value $y_0$ for the first entry of vector `y`
 
 **Step 3: Implement Euler's method**
@@ -162,7 +162,7 @@ Copy and paste the code for the function `odeEuler` into a new script and save t
 
 **Example: Euler's method and slope fields**
 
-Euler's method is an iterative method which geenrates approximations of solutions of differential equations by simply following the slopes in a slopefield. Let's plot an approximation of $y' = y$, $y(0) = 1$ along with the slopefield to view the realtionship between them.
+Euler's method is an iterative method which generates approximations of solutions of differential equations by simply following the slopes in a slope field. Plot an approximation of $y' = y$, $y(0) = 1$ along with the slope field to view the realtionship between them.
 
 ```none
 f = @(t,y) -y;
@@ -177,7 +177,7 @@ plot(T,Y,'r.-'), hold off
 
 **Example: Nonlinear, nonseparable equations**
 
-As we have noted multiple times before, most differential equations are impossible to solve explicitly with elementary functions. We have methods to analytically solve linear equations and separable equations and so let's use Euler's method to approximate solutions for an example where a formula for the general solution is unknown. Let's plot an approximation of $y' = t - y^2$ for each initial value $y(0)=0,1,2,3$.
+As we have noted multiple times before, most differential equations are impossible to solve explicitly with elementary functions. We have methods to analytically solve linear equations and separable equations and so let's use Euler's method to approximate solutions for an equation that is neither linear nor separable. Plot an approximation of $y' = t - y^2$ for each initial value $y(0)=0,1,2,3$.
 
 ```none
 f = @(t,y) t - y.^2;

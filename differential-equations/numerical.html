@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Euler’s Method &#8212; MATLAB for UBC Mathematics</title>
   
@@ -46,6 +46,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -70,7 +71,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Numerical Solutions with ode45" href="ode45.html" />
     <link rel="prev" title="Slope Fields" href="graphical.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -335,14 +336,14 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="euler-s-method">
-<h1>Euler’s Method<a class="headerlink" href="#euler-s-method" title="Permalink to this headline">#</a></h1>
+<h1>Euler’s Method<a class="headerlink" href="#euler-s-method" title="Permalink to this heading">#</a></h1>
 <p>Most differential equations cannot be solved explicitly with elementary functions. So what do we do? Numerical methods are algorithms to numerically approximate solutions of differential equations and Euler’s method is the most basic numerical method. The idea is simple: use the equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span> to construct the tangent line to the unknown solution <span class="math notranslate nohighlight">\(y(t)\)</span> at a given point <span class="math notranslate nohighlight">\(t\)</span>, approximate the solution nearby <span class="math notranslate nohighlight">\(y(t+h)\)</span> and repeat.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Check out <a class="reference external" href="https://www.jirka.org/diffyqs/html/numer_section.html">Notes on Diffy Qs (Section 1.7)</a> to learn more about Euler’s method, and see the MATLAB documentation for more information about <a class="reference external" href="https://www.mathworks.com/help/matlab/ref/for.html">for loops</a> and <a class="reference external" href="https://www.mathworks.com/help/matlab/ref/function.html">functions</a>.</p>
 </div>
 <section id="formulation">
-<h2>Formulation<a class="headerlink" href="#formulation" title="Permalink to this headline">#</a></h2>
+<h2>Formulation<a class="headerlink" href="#formulation" title="Permalink to this heading">#</a></h2>
 <p>Consider a first order differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span> with initial value <span class="math notranslate nohighlight">\(y(t_0) = y_0\)</span>. Use the tangent line of the solution to approximate values near <span class="math notranslate nohighlight">\(t = t_0\)</span></p>
 <div class="math notranslate nohighlight">
 \[
@@ -361,7 +362,7 @@ y_{n+1} = y_n + f(t_n,y_n)(t_{n+1} - t_n) \ , \ \ y(t_0) = y_0
 <p>such that <span class="math notranslate nohighlight">\(y_n \approx y(t_n)\)</span> is an approximation of the solution <span class="math notranslate nohighlight">\(y(t)\)</span> at <span class="math notranslate nohighlight">\(t=t_n\)</span>. Note that we usually choose the same step size <span class="math notranslate nohighlight">\(h = t_{n+1} - t_n\)</span> for all <span class="math notranslate nohighlight">\(n\)</span> so that <span class="math notranslate nohighlight">\(t_n = t_0 + nh\)</span>.</p>
 </section>
 <section id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">#</a></h2>
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
 <p>Consider the familiar equation <span class="math notranslate nohighlight">\(y' = -y\)</span>, <span class="math notranslate nohighlight">\(y(0) = 1\)</span>. We know the exact solution is <span class="math notranslate nohighlight">\(y(t) = e^{-t}\)</span>. Let’s compute the approximation by Euler’s method and compare to the exact answer.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) -y;
 t0 = 0; tf = 2; h = 0.1;
@@ -406,7 +407,7 @@ y(1) = y0;
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>Define a vector of zeros of same size as the vector <code class="docutils literal notranslate"><span class="pre">t</span></code></p></li>
+<li><p>Initialize a vector <code class="docutils literal notranslate"><span class="pre">y</span></code> of zeros of same size as the vector <code class="docutils literal notranslate"><span class="pre">t</span></code></p></li>
 <li><p>Enter the initial value <span class="math notranslate nohighlight">\(y_0\)</span> for the first entry of vector <code class="docutils literal notranslate"><span class="pre">y</span></code></p></li>
 </ul>
 <p><strong>Step 3: Implement Euler’s method</strong></p>
@@ -442,7 +443,7 @@ ylim([0,1]), grid on
 </ul>
 </section>
 <section id="odeeuler">
-<h2><code class="docutils literal notranslate"><span class="pre">odeEuler</span></code><a class="headerlink" href="#odeeuler" title="Permalink to this headline">#</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">odeEuler</span></code><a class="headerlink" href="#odeeuler" title="Permalink to this heading">#</a></h2>
 <p>We will repeat the exact same code in steps 2 and 3 above every time we implement Euler’s method and so we should package those lines of code into a function so that we can easily reuse the code. Let’s create a function called <code class="docutils literal notranslate"><span class="pre">odeEuler</span></code> which takes input parameters:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">f</span></code> is a function which represents the right hand side of a differential equation <span class="math notranslate nohighlight">\(y' = f(t,y)\)</span></p></li>
@@ -480,9 +481,9 @@ plot(T,Y,&#39;r.-&#39;), ylim([0,1]), grid on
 </div>
 </section>
 <section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h2>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">#</a></h2>
 <p><strong>Example: Euler’s method and slope fields</strong></p>
-<p>Euler’s method is an iterative method which geenrates approximations of solutions of differential equations by simply following the slopes in a slopefield. Let’s plot an approximation of <span class="math notranslate nohighlight">\(y' = y\)</span>, <span class="math notranslate nohighlight">\(y(0) = 1\)</span> along with the slopefield to view the realtionship between them.</p>
+<p>Euler’s method is an iterative method which generates approximations of solutions of differential equations by simply following the slopes in a slope field. Plot an approximation of <span class="math notranslate nohighlight">\(y' = y\)</span>, <span class="math notranslate nohighlight">\(y(0) = 1\)</span> along with the slope field to view the realtionship between them.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) -y;
 t0 = 0; tf = 2; h = 0.1; t = t0:h:tf; y0 = 1;
 y = 0:h:1;
@@ -493,7 +494,7 @@ plot(T,Y,&#39;r.-&#39;), hold off
 </div>
 <p><img alt="numerical3.png" src="../_images/numerical3.png" /></p>
 <p><strong>Example: Nonlinear, nonseparable equations</strong></p>
-<p>As we have noted multiple times before, most differential equations are impossible to solve explicitly with elementary functions. We have methods to analytically solve linear equations and separable equations and so let’s use Euler’s method to approximate solutions for an example where a formula for the general solution is unknown. Let’s plot an approximation of <span class="math notranslate nohighlight">\(y' = t - y^2\)</span> for each initial value <span class="math notranslate nohighlight">\(y(0)=0,1,2,3\)</span>.</p>
+<p>As we have noted multiple times before, most differential equations are impossible to solve explicitly with elementary functions. We have methods to analytically solve linear equations and separable equations and so let’s use Euler’s method to approximate solutions for an equation that is neither linear nor separable. Plot an approximation of <span class="math notranslate nohighlight">\(y' = t - y^2\)</span> for each initial value <span class="math notranslate nohighlight">\(y(0)=0,1,2,3\)</span>.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f = @(t,y) t - y.^2;
 t0 = 0; tf = 4; h = 0.01; t = t0:h:tf;
 [T,Y0] = odeEuler(f,t,0); plot(T,Y0,&#39;b&#39;), hold on
@@ -517,7 +518,7 @@ hold off
 <p><img alt="numerical5.png" src="../_images/numerical5.png" /></p>
 </section>
 <section id="error-analysis">
-<h2>Error Analysis<a class="headerlink" href="#error-analysis" title="Permalink to this headline">#</a></h2>
+<h2>Error Analysis<a class="headerlink" href="#error-analysis" title="Permalink to this heading">#</a></h2>
 <p><em>Under construction</em></p>
 </section>
 </section>
