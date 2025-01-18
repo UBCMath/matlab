@@ -14,12 +14,11 @@ Check out [mathworks.com](https://www.mathworks.com) to learn more about MATLAB,
 * Click "Activate Student Email" and follow the instructions
 * See [UBC Student Email Service](https://it.ubc.ca/services/email-voice-internet/ubc-student-email-service) for more information
 
-## Change Contact Email on SSC
+## Change Contact Email on Workday
 
-* Mathworks verifies your email address by connecting to the Student Services Center (SCC)
-* Go to [ssc.adm.ubc.ca](https://ssc.adm.ubc.ca/sscportal/) and sign in with your CWL and password
-* Change your contact email to your UBC email address ending in `ubc.ca`
-* You may change your contact email back to your preferred address once you have created your Mathworks account in the steps below.
+* Mathworks verifies your email address by connecting to Workday
+* Go to [workday.ubc.ca](https://myworkday.ubc.ca/) and sign in with your CWL and password
+* Change your Workday **home** email to your UBC email address ending in `ubc.ca`
 
 ## Create a MathWorks account
 
